@@ -1,5 +1,7 @@
 "use strict";
 
+// (BJS-45) 1.1 Основные понятия
+
 function solveEquation(a, b, c) {
     let arr;
     // код для задачи №1 писать здесь
