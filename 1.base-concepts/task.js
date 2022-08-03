@@ -82,7 +82,7 @@ function calculateTotalMortgage(percent, contribution, amount, date) {
 
 
     function writeMsgAboutCredit(credit = credit) {
-        let msg = `Кредит в размере ${credit.amount.value} руб. под ${credit.percent.value * 100}%` +
+        let msg = `Кредит в размере ${credit.amount.value} руб. под ${credit.percent.value}%` +
             ` на ${credit.months} месяц. с первоначальным взносом ${credit.contribution.value} руб.` +
             ` c ежемесячными платежами в размере ${credit.monthlyPayment}` +
             ` на общую сумму ${credit.fullPayment}`;
