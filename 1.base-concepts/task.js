@@ -24,7 +24,7 @@ function calculateTotalMortgage(percent, contribution, amount, date) {
         percent: {name: 'Процентная ставка', value: percent, rightType: 'number'},
         contribution: {name: 'Начальный взнос', value: contribution, rightType: 'number'},
         amount: {name: 'Общая стоимость', value: amount, rightType: 'number'},
-        date: {name: 'Расчетнаяя дата', value: date, rightType: 'date'}
+        date: {name: 'Расчетная дата', value: date, rightType: 'date'}
     };
     for (let parameter in credit) {
         let param = credit[parameter];
@@ -58,7 +58,7 @@ function calculateTotalMortgage(percent, contribution, amount, date) {
         return writeMsgErrNumberValue(credit.date);
     }
 
-    credit.creditBody = credit.amount.value - credit.contribution.value;
+    credit.body = credit.amount.value - credit.contribution.value;
     credit.begin = new Date();
     credit.end = credit.date.value;
     credit.days =  ((credit.end - credit.begin) / (1000 * 60 * 60 * 24)).toFixed(0);
@@ -66,8 +66,8 @@ function calculateTotalMortgage(percent, contribution, amount, date) {
     credit.months += credit.end.getMonth() - credit.begin.getMonth();
 
     let p = credit.percent.value / 100 / 12; // если 0%, то деление на ноль: monthlyPayment = NaN
-    credit.monthlyPayment = credit.creditBody * (p + p / (Math.pow(1 + p, credit.months) - 1));
-    credit.fullPayment = Math.round((credit.monthlyPayment * credit.months) * 100)/100;
+    credit.monthlyPayment = credit.body * (p + p / (Math.pow(1 + p, credit.months) - 1));
+    credit.fullPayment = Math.round(credit.monthlyPayment * credit.months * 100) / 100;
     credit.monthlyPayment = Math.round(credit.monthlyPayment * 100) / 100;
 
     totalAmount = writeMsgAboutCredit(credit);
@@ -90,5 +90,3 @@ function calculateTotalMortgage(percent, contribution, amount, date) {
         return credit.fullPayment;
     }
 }
-
-
