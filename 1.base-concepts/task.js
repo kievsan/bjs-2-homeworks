@@ -32,30 +32,30 @@ function calculateTotalMortgage(percent, contribution, amount, date) {
             case 'number':
                 let parser = parseFloat(param.value);
                 if (isNaN(parser)) {
-                    return writeMsgErrNumberValue(param);
+                    return writeMsgParamValueErr(param);
                 }
                 credit[parameter].value = parser;
                 break;
             case 'date':
                 if (param.value.toString() === 'Invalid Date') {
-                    return writeMsgErrNumberValue(param);
+                    return writeMsgParamValueErr(param);
                 }
                 break;
             default:
-                return writeMsgErrNumberValue(param);
+                return writeMsgParamValueErr(param);
         }
     }
     if (credit.percent.value === 0) {
-        return writeMsgErrNumberValue(credit.percent);
+        return writeMsgParamValueErr(credit.percent);
     }
     if (credit.contribution.value > credit.amount.value) {
-        return writeMsgErrNumberValue(credit.contribution);
+        return writeMsgParamValueErr(credit.contribution);
     }
     if (credit.amount.value === 0) {
-        return writeMsgErrNumberValue(credit.amount);
+        return writeMsgParamValueErr(credit.amount);
     }
     if (credit.date.value <= new Date()) {
-        return writeMsgErrNumberValue(credit.date);
+        return writeMsgParamValueErr(credit.date);
     }
 
     credit.body = credit.amount.value - credit.contribution.value;
@@ -74,7 +74,7 @@ function calculateTotalMortgage(percent, contribution, amount, date) {
     return totalAmount;
 
 
-    function writeMsgErrNumberValue(param) {
+    function writeMsgParamValueErr(param) {
         let msg = `Параметр "${param.name}" содержит неправильное значение "${param.value}"`;
         alert(msg);
         return msg;
