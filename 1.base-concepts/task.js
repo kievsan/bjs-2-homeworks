@@ -54,7 +54,7 @@ function calculateTotalMortgage(percent, contribution, amount, date) {
     if (credit.amount.value === 0) {
         return writeMsgErrNumberValue(credit.amount);
     }
-    if (credit.date.value - (new Date()) <= 0) {
+    if (credit.date.value <= new Date()) {
         return writeMsgErrNumberValue(credit.date);
     }
 
