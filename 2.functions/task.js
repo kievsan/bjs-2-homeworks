@@ -42,9 +42,9 @@ function makeWork(arrOfArr, func) {
   // Ваш кода
   max = -Infinity;
   for (let i in arrOfArr) {
-    let sum = func(arrOfArr[i]);
-    if (sum > max) {
-      max = sum;
+    let funcValue = func(arrOfArr[i]);
+    if (funcValue > max) {
+      max = funcValue;
     }
   }
   return max;
