@@ -5,7 +5,7 @@ function Student(name, gender, age) {
     this.age = age;
 }
 
-//1.
+//2.
 // Student.prototype.setSubject = (subjectName) => this.subject = subjectName;
 // не работает: this = [object Window] !!!
 Student.prototype.setSubject = function (subjectName) {
@@ -13,25 +13,27 @@ Student.prototype.setSubject = function (subjectName) {
 };
 
 // ваш код для остальных методов
-// 2.
+// 3.
 Student.prototype.addMark = function (mark) {
     if(this.marks === undefined){
         this.marks = [];
     }
     this.marks.push(mark);
 }
-// 3.
+// 4.
 Student.prototype.addMarks = function (...markList) {
     if(this.marks === undefined){
         this.marks = [];
     }
     this.marks = this.marks.concat(markList);
 }
-// 4.
+// 5.
 Student.prototype.getAverage = function () {
     return this.marks.reduce((sum, mark) => sum += mark, 0) / this.marks.length;
 };
-// 5.
+// 6.
 Student.prototype.exclude = function (reason) {
+    delete this.subject;
+    delete this.marks;
     this.excluded = reason;
 };
