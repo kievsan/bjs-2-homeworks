@@ -15,17 +15,18 @@ Student.prototype.setSubject = function (subjectName) {
 // ваш код для остальных методов
 // 3.
 Student.prototype.addMark = function (mark) {
-    if(this.marks === undefined){
+    if (this.marks === undefined) {
         this.marks = [];
     }
     this.marks.push(mark);
 }
 // 4.
 Student.prototype.addMarks = function (...markList) {
-    if(this.marks === undefined){
+    if (this.marks === undefined) {
         this.marks = [];
     }
-    this.marks = this.marks.concat(markList);
+    this.marks.push(...markList); // push метод может принимать множество аргументов
+    // this.marks = this.marks.concat(markList); // Старайтесь не использовать concat для добавления элементов в массив
 }
 // 5.
 Student.prototype.getAverage = function () {
