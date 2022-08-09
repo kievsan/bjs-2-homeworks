@@ -89,20 +89,6 @@ class Library {
         this.books = [];
     }
 
-    presentationBook(book) {
-        return ((book.type === null) ? `` : `${book.type}:  `) +
-            ((book?.name) ? `"${book.name}" ` : ``) +
-            ((book?.author) ? `${book.author}` : ``) +
-            ((book?.releaseDate) ? `, ${book.releaseDate}` : ``) +
-            ((book?.pagesCount) ? `, ${book.pagesCount} стр.` : ``) +
-            ((book?.state) ? `, сохранность: ${book.state}` : ``);
-    }
-
-    presentationBooks(title = `Сейчас в хранилище:\n`) {
-        return `${this.books.reduce((reader, book, idx) => {
-            return reader + `${idx + 1})   ${this.presentationBook(book)}\n`}, title)}`
-    }
-
     addBook(book) {
         // if (book.state <= 30) {
         //     alert(`Слишком изношенный экземпляр ${this.presentationBook(book)}\n ${this.name} принять не может!`);
@@ -133,11 +119,39 @@ class Library {
 
     giveBookByName(bookName) {
         let foundBook = this.findBookBy('name', bookName);
-        if (foundBook) {
-
+        // alert(`ВЫДАТЬ Экземпляр с "name" = "${bookName}":\n` +
+        //     `ПОИСК:   ${this.presentationBook(foundBook)}\n ${this.presentationBooks()}`);
+        if (foundBook !== null) {
+            this.books = this.books.filter((book) => book.name !== bookName);
+            // alert(`УДАЛЁН экземпляр с "name" = "${bookName}":\n ${this.presentationBook(foundBook)}\n ${this.presentationBooks()}`);
         }
         return foundBook;
     }
+
+    // presentationBook(book) {
+    //     switch (book) {
+    //         case undefined:
+    //             return 'undefined';
+    //         case null:
+    //             return 'null';
+    //         default:
+    //             return ((book.type === null) ? `` : `${book.type}:  `) +
+    //                 ((book?.name) ? `"${book.name}" ` : ``) +
+    //                 ((book?.author) ? `${book.author}` : ``) +
+    //                 ((book?.releaseDate) ? `, ${book.releaseDate}` : ``) +
+    //                 ((book?.pagesCount) ? `, ${book.pagesCount} стр.` : ``) +
+    //                 ((book?.state) ? `, сохранность: ${book.state}` : ``);
+    //     }
+    // }
+    //
+    // presentationBooks(title = `Сейчас в хранилище:`) {
+    //     let bookList = `${this.books.reduce((reader, book, idx) => {
+    //         return reader + `\n${idx + 1})   ${this.presentationBook(book)}`}, title)}`
+    //     if (bookList === title) {
+    //         bookList += '   нет ни одного экземпляра!';
+    //     }
+    //     return bookList;
+    // }
 }
 
 
