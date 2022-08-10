@@ -172,8 +172,9 @@ class Student {
         console.log(`Задать ИМЯ:`);
         if (name === undefined || name === null || name.trim() === '') {
             this._name = `ИМЯ не известно!`;
+        } else {
+            this._name = name.trim();
         }
-        this._name = name.trim();
         console.log(`   Имя студента: ${this._name}.`);
     }
 
