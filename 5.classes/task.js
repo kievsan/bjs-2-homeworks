@@ -257,7 +257,7 @@ class Student {
     include (reason) {
         this.excluded = null;
         this.setMarksLog();
-        console.log(`\n${this.name} ВОССТАНОВЛЕН! Причина: ${reason}.\n     Заведен чистый Журнал успеваемости.`);
+        console.log(`\n${this.name} ВОССТАНОВЛЕН! Причина: ${reason}.\n     Восстановлен Журнал успеваемости.`);
     }
 
     msgForExcluded () {
@@ -280,7 +280,7 @@ class Student {
     }
 
     setMarksLog() {
-        this.marksLog = [];
+        this.marksLog = {};
     }
 
     hasMarksLog () {
