@@ -217,7 +217,6 @@ class Student {
 
     set excluded (reason) {
         if (reason === undefined || reason === null) {
-            // if (this._excluded === undefined || this._excluded === null) {
             if (this._excluded) {
                 console.log(`\n${this.name} ВОССТАНОВЛЕН!`);
             }
@@ -228,8 +227,8 @@ class Student {
         if (reason.length === 0) {
             reason = 'неизвестная причина';
         }
-        this._excluded = reason;
         this.marksLog = null;
+        this._excluded = reason;
         console.log(`\n${this.name} ИСКЛЮЧЕН! Причина: ${reason}.\n     Журнал успеваемости передан в архив.`);
     }
 
@@ -300,7 +299,7 @@ class Student {
 
     printMarksLog () {
         console.log(`\n${this.name}, ЖУРНАЛ успеваемости:`);
-        if (this.isExcluded()) {
+        if (this.checkExcluded()) {
             return;
         }
         for (let subject in this.marksLog) {
