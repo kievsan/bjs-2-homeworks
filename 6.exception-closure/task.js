@@ -53,7 +53,7 @@ const Figure = class {
             for (const value of Array.of(...values)) {
                 if (!validateControl(value)) {return false}
             }
-            return true
+            return true;
         }
 
         return isValidated(...sides);
@@ -112,9 +112,15 @@ const getTriangle = (a,b,c) => {
         triangle = new Triangle(a,b,c);
     } catch (err) {
         triangle = {
-            getPerimeter: () =>{ return errMsg},
-            getArea: () => { return errMsg}
+            getPerimeter: () =>{
+                // return err;
+                return errMsg;
+            },
+            getArea: () => {
+                // return err;
+                return errMsg;
             }
+        }
         console.log(`Создан треугольник-фантом: (${a}, ${b}, ${c})!`);
     }
     return triangle;
