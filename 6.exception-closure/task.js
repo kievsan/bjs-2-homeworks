@@ -38,7 +38,7 @@ const Figure = class {
             return parsed;
         }
 
-        const validateControl = (value = 1) => {
+        const validityControl = (value = 1) => {
             let validatedValue;
             try {
                 validatedValue = numerableControl(value);
@@ -51,7 +51,7 @@ const Figure = class {
 
         const isValidated = (...values) => {
             for (const value of Array.of(...values)) {
-                if (!validateControl(value)) {return false}
+                if (!validityControl(value)) {return false}
             }
             return true;
         }
@@ -112,7 +112,7 @@ const getTriangle = (a,b,c) => {
         triangle = new Triangle(a,b,c);
     } catch (err) {
         triangle = {
-            getPerimeter: () =>{
+            getPerimeter: () => {
                 // return err;
                 return errMsg;
             },
