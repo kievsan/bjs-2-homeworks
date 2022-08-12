@@ -28,7 +28,7 @@ console.log(`from "task.js", validateCount(): parsed = ${validateCount()}`);
 // Задача №2. Треугольник
 
 const Figure = class {
-    hasValidatedSides(...sidesLengths) {
+    hasValidatedSides (...sidesLengths) {
         const numerableControl = (value) => {
             let parsed = null;
             let parsingFloatValue = parseFloat(value);
@@ -62,12 +62,12 @@ const Figure = class {
 
 
 const Triangle = class extends Figure {
-    err = 'Треугольник с такими сторонами не существует';
-
-    constructor(a, b, c) {
+    constructor (a, b, c) {
         super();
         if (this.hasValidatedSides(a,b,c) &&
-            a + b < c || a + c < b || b + c < a) {throw new Error(this.err)}
+            a + b < c || a + c < b || b + c < a) {
+            throw new Error('Треугольник с такими сторонами не существует');
+        }
         this.a = a;
         this.b = b;
         this.c = c;
@@ -132,14 +132,14 @@ let triangle = new Triangle(1,3,3);
 console.log('\n ');
 
 triangle = new Triangle(2,5,5);
-console.log(triangle.getPerimeter());
-console.log(triangle.getArea());
+console.log(`P = ${triangle.getPerimeter()}`);
+console.log(`S = ${triangle.getArea()}`);
 console.log('\n ');
 
 triangle = new Triangle(6,10,15);
 triangle.c = -55;
-console.log(triangle.getPerimeter());
-console.log(triangle.getArea());
+console.log(`P = ${triangle.getPerimeter()}`);
+console.log(`S = ${triangle.getArea()}`);
 console.log('\n ');
 
 // triangle = new Triangle(1,3,100);
@@ -152,7 +152,7 @@ getTriangle(2,5,5)
 console.log('\n ');
 
 triangle = getTriangle(1,3,100);
-console.log(triangle.getPerimeter());
-console.log(triangle.getArea());
+console.log(`P = ${triangle.getPerimeter()}`);
+console.log(`S = ${triangle.getArea()}`);
 console.log('\n ');
 
