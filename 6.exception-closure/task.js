@@ -30,33 +30,34 @@ console.log(`from "task.js", validateCount(): parsed = ${validateCount()}`);
 const Figure = class {
     hasValidatedSides (...sidesLengths) {
         const numerableControl = (value) => {
-            let parsed = null;
             let parsingFloatValue = parseFloat(value);
             if (isNaN(parsingFloatValue)) {
                 throw new Error("Невалидное значение")
-            } else {parsed = parsingFloatValue}
-            return parsed;
+            }
+            return parsingFloatValue;
         }
 
-        const validityControl = (value = 1) => {
+        const isValidated = (value = 1) => {
             let validatedValue;
             try {
                 validatedValue = numerableControl(value);
-                console.log(`from validateControl(), try{}:   validatedValue = ${validatedValue}`);
             } catch (err) {
-                console.log(`from validateControl(), catch{}:   value = ${value}, ${err}`);
+                validatedValue = 0;
+            } finally {
+                console.log(`${value} - ${validatedValue > 0 ? `валидное` : `НЕвалидное`}` +
+                    ` значение длины`);
             }
-            return validatedValue;
+            return validatedValue > 0;
         }
 
-        const isValidated = (...values) => {
+        const validityControl = (...values) => {
             for (const value of Array.of(...values)) {
-                if (!validityControl(value)) {return false}
+                if (!isValidated(value)) {return false}
             }
             return true;
         }
 
-        return isValidated(...sidesLengths);
+        return validityControl(...sidesLengths);
     }
 }
 
@@ -64,14 +65,16 @@ const Figure = class {
 const Triangle = class extends Figure {
     constructor (a, b, c) {
         super();
-        if (this.hasValidatedSides(a,b,c) &&
-            a + b < c || a + c < b || b + c < a) {
+        console.log(`Создадим треугольник (${a}, ${b}, ${c}):`);
+        if (!this.hasValidatedSides(a,b,c) ||
+            (a + b < c || a + c < b || b + c < a)) {
             throw new Error('Треугольник с такими сторонами не существует');
         }
         this.a = a;
         this.b = b;
         this.c = c;
         console.log(`Создан треугольник: (${a}, ${b}, ${c})`);
+        // console.table(this);
     }
 
     getPerimeter (a = this.a, b = this.b, c = this.c) {
@@ -121,7 +124,7 @@ const getTriangle = (a,b,c) => {
                 return errMsg;
             }
         }
-        console.log(`Создан треугольник-фантом: (${a}, ${b}, ${c})!`);
+        console.log(`Создан треугольник-ФАНТОМ: (${a}, ${b}, ${c})!`);
     }
     return triangle;
 }
@@ -147,6 +150,8 @@ console.log('\n ');
 // triangle = new Triangle(100,3,10);
 //
 // triangle = new Triangle(1,300,10);
+//
+// triangle = new Triangle(0,0,5);
 
 getTriangle(2,5,5)
 console.log('\n ');
@@ -155,4 +160,11 @@ triangle = getTriangle(1,3,100);
 console.log(`P = ${triangle.getPerimeter()}`);
 console.log(`S = ${triangle.getArea()}`);
 console.log('\n ');
+
+//------------
+
+triangle = getTriangle(0,-1,100);
+console.log(`P = ${triangle.getPerimeter()}`);
+console.log(`S = ${triangle.getArea()}`);
+
 
