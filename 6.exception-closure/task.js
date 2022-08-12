@@ -28,7 +28,7 @@ console.log(`from "task.js", validateCount(): parsed = ${validateCount()}`);
 // Задача №2. Треугольник
 
 const Figure = class {
-    hasValidatedSides(...sides) {
+    hasValidatedSides(...sidesLengths) {
         const numerableControl = (value) => {
             let parsed = null;
             let parsingFloatValue = parseFloat(value);
@@ -56,7 +56,7 @@ const Figure = class {
             return true;
         }
 
-        return isValidated(...sides);
+        return isValidated(...sidesLengths);
     }
 }
 
