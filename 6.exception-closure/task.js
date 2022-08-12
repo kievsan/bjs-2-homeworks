@@ -1,12 +1,11 @@
 // Задача №1. Форматтер чисел
 
 const parseCount = (value = 'fjmfjm') => {
-    let parsed = null;
     let parsingIntValue = parseInt(value);
     if (isNaN(parsingIntValue)) {
         throw new Error("Невалидное значение")
-    } else {parsed = parsingIntValue}
-    return parsed;
+    }
+    return parsingIntValue;
 }
 
 const validateCount = (value = 'fjmfjm') => {
@@ -17,7 +16,6 @@ const validateCount = (value = 'fjmfjm') => {
     } catch (err) {
         parsed = err;
         console.log(`from validateCount(), catch{}:   value = ${value}`);
-    } finally {
     }
     return parsed;
 }
@@ -162,6 +160,8 @@ console.log(`S = ${triangle.getArea()}`);
 
 triangle = getTriangle(1,3);
 console.log(`P = ${triangle.getPerimeter()}`);
-console.log(`S = ${triangle.getArea()}`);
+console.log(`S = ${triangle.getArea()}`);;
+
+triangle = getTriangle(1,3, '2м');
 
 
