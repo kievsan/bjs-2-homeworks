@@ -84,17 +84,17 @@ const Triangle = class extends Figure {
     }
 
     set a(value) {
-        if (this._a === undefined) {
+        if (!this?._a) {
             this._a = value;
         }
     }
     set b(value) {
-        if (this._b === undefined) {
+        if (!this?._b) {
             this._b = value;
         }
     }
     set c(value) {
-        if (this._c === undefined) {
+        if (!this?._c) {
             this._c = value;
         }
     }
