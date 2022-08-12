@@ -37,7 +37,7 @@ const Figure = class {
             return parsingFloatValue;
         }
 
-        const isValidated = (value = 1) => {
+        const isValidated = (value) => {
             let validatedValue;
             try {
                 validatedValue = numerableControl(value);
@@ -157,6 +157,10 @@ console.log('\n ');
 //------------
 
 triangle = getTriangle(0,-1,100);
+console.log(`P = ${triangle.getPerimeter()}`);
+console.log(`S = ${triangle.getArea()}`);
+
+triangle = getTriangle(1,3);
 console.log(`P = ${triangle.getPerimeter()}`);
 console.log(`S = ${triangle.getArea()}`);
 
