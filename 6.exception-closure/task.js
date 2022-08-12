@@ -28,7 +28,7 @@ console.log(`from "task.js", validateCount(): parsed = ${validateCount()}`);
 // Задача №2. Треугольник
 
 const Figure = class {
-    hasValidatedSides (...sidesLengths) {
+    hasNoValidatedSide (...sidesLengths) {
         const numerableControl = (value) => {
             let parsingFloatValue = parseFloat(value);
             if (isNaN(parsingFloatValue)) {
@@ -50,14 +50,7 @@ const Figure = class {
             return validatedValue > 0;
         }
 
-        const validityControl = (...values) => {
-            for (const value of Array.of(...values)) {
-                if (!isValidated(value)) {return false}
-            }
-            return true;
-        }
-
-        return validityControl(...sidesLengths);
+        return Array.of(...sidesLengths).some((value) => !isValidated(value));
     }
 }
 
@@ -66,7 +59,7 @@ const Triangle = class extends Figure {
     constructor (a, b, c) {
         super();
         console.log(`Создадим треугольник (${a}, ${b}, ${c}):`);
-        if (!this.hasValidatedSides(a,b,c) ||
+        if (this.hasNoValidatedSide(a,b,c) ||
             (a + b < c || a + c < b || b + c < a)) {
             throw new Error('Треугольник с такими сторонами не существует');
         }
