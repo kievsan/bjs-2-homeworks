@@ -378,7 +378,6 @@ class Student {
 
     getAverage () {
         const  marksLog = Object.values(this.marksLog);
-        // alert(`Подсчитаем средний балл по всем предметам:\n оценки по всем предметам:   ${marksLog}`);
         return +(
             (marksLog.reduce(
                 (summa, marksSheet) => summa + marksSheet.reduce(

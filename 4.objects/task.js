@@ -30,7 +30,7 @@ Student.prototype.addMarks = function (...markList) {
 }
 // 5.
 Student.prototype.getAverage = function () {
-    return this.marks.reduce((sum, mark) => sum += mark, 0) / this.marks.length;
+    return this.marks.reduce((sum, mark) => sum + mark, 0) / this.marks.length;
 };
 // 6.
 Student.prototype.exclude = function (reason) {
