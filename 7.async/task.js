@@ -42,9 +42,6 @@ class AlarmClock {
 
     start () {
         let checkClock = (timer) => {
-            if (timer.time < this.getCurrentFormattedTime()) {
-
-            }
             if (timer.time === this.getCurrentFormattedTime()) {
                 console.log(`${timer.id}) ${timer.time} - активный будильник-${timer.id}  (.checkClock)`);
                 console.log(`ждём СООБЩЕНИЕ-${timer.id}!`);
