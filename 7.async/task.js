@@ -104,10 +104,9 @@ function  testCase (myAlarmClock) {
         myAlarmClock.clearAlarms();
         myAlarmClock.printAlarms();
         }, 3);
-    myAlarmClock.addClock(null, null, 1);
-    // myAlarmClock.printAlarms();
+    // myAlarmClock.addClock(null, null, 1);
+    myAlarmClock.printAlarms();
     myAlarmClock.start();
-    // myAlarmClock.printAlarms();
 }
 
 testCase(new AlarmClock());
