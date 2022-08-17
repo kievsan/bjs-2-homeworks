@@ -1,6 +1,6 @@
 const addThree = (a, b, c) => (a + b + c); 
 const upgradedAddThree = cachingDecoratorNew(addThree);
-upgradedAddThree(1, 2, 3); 
+upgradedAddThree(1, 2, 3);
 upgradedAddThree(1, 2, 3); 
 upgradedAddThree(2, 2, 3); 
 upgradedAddThree(3, 2, 3); 
