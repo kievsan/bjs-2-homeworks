@@ -1,47 +1,97 @@
 // Домашнее задание к лекции 8 «Декораторы»
 // Задача 1. Усовершенствуйте кэширующий декоратор
 
-function cachingDecoratorNew(func) {
+function cachingDecoratorNew(func) { // [ {hash,val}, {hash,val}, ...]
     wrapper.cache = [];
-    wrapper.found = (hash) => wrapper.cache.find(([thisHash, thisValue]) => thisHash === hash);
+    wrapper.found = (hash) => wrapper.cache.find(
+        (hashObj, i, cache, thisHash = Object.entries(hashObj).flat()[0]) => thisHash === hash);
     wrapper.notFound = (hash) => !wrapper.cache.length || !wrapper.found(hash);
+    wrapper.cacheToString = () => wrapper.cache.reduce(
+        (str, hashObj, i, cache, pairHashValue = Object.entries(hashObj).flat()) =>
+            str + ` {${pairHashValue[0]}: ${pairHashValue[1]}}`, ``);
 
     function wrapper(...args) {
+        let result, action;
         const hash = args.join(",");
         console.log('\n', hash);
-        let [thisHash, thisValue] = wrapper.notFound(hash) ? [] : wrapper.found(hash);
-        console.log(!thisHash ? 'not found' : "found: ", thisHash, ", ", thisValue);
+        result = wrapper.notFound(hash) ? [] : wrapper.found(hash);
+        let [thisHash, thisValue] = Object.entries(result).flat();
+        console.log(!thisHash ? 'not found' : "found");
         if (thisHash) {
-            console.log("Из кэша: " + thisValue);
+            result = 'Из кэша: ' + thisValue;
+            action = '';
         } else {
             thisValue = func.call(this, ...args);
-            if (wrapper.cache.push([hash, thisValue]) > 5) {
+            if (wrapper.cache.push({[hash]: thisValue}) > 5) {
                 wrapper.cache.shift();
+                action = 'Удаляем самый старый кэш.';
             }
-            console.log("Вычисляем: " + thisValue);
-            wrapper.cache.forEach(([thisHash, thisValue]) => console.log('[', thisHash, ',',  thisValue, ']'));
+            result = 'Вычисляем: ' + thisValue;
+            action = 'Добавляем новый кэш.' + (action ? ` ${action}` : '');
+            action += `\n[${wrapper.cacheToString()} ]`;
         }
+        console.log(`${result}. ${action}`);
+        return result;
     }
 
     return wrapper;
 }
 
-function cachingDecoratorNew2(func) {
+function cachingDecoratorNew2(func) { // [ [hash,val], [hash,val], ...]
+    wrapper.cache = [];
+    wrapper.found = (hash) => wrapper.cache.find(([thisHash, thisValue]) => thisHash === hash);
+    wrapper.notFound = (hash) => !wrapper.cache.length || !wrapper.found(hash);
+    wrapper.cacheToString = () => wrapper.cache.reduce(
+        (str, [thisHash, thisValue]) => str + ` [${thisHash}: ${thisValue}]`, ``);
+
+    function wrapper(...args) {
+        let result, action;
+        const hash = args.join(",");
+        console.log('\n', hash);
+        let [thisHash, thisValue] = wrapper.notFound(hash) ? [] : wrapper.found(hash);
+        console.log(!thisHash ? 'not found' : "found");
+        if (thisHash) {
+            result = 'Из кэша: ' + thisValue;
+            action = '';
+        } else {
+            thisValue = func.call(this, ...args);
+            if (wrapper.cache.push([hash, thisValue]) > 5) {
+                wrapper.cache.shift();
+                action = 'Удаляем самый старый кэш.';
+            }
+            result = 'Вычисляем: ' + thisValue;
+            action = 'Добавляем новый кэш.' + (action ? ` ${action}` : '');
+            action += `\n[${wrapper.cacheToString()} ]`;
+        }
+        console.log(`${result}. ${action}`);
+        return result;
+    }
+
+    return wrapper;
+}
+
+function cachingDecoratorNew3(func) { // { {hash: val}, {hash: val}, ...}
     wrapper.cache = {};
+    wrapper.cacheToString =  () => Object.entries(wrapper.cache)
+        .reduce((res, [thisHash, thisValue]) => res + ` {${thisHash}: ${thisValue}}`, ``);
     wrapper.last5 = () => Object.fromEntries(Object.entries(wrapper.cache)
         .filter(([hash, value], idx, cache, l = cache.length) => l <= 5 || l > 5 && idx >= l - 5));
 
     function wrapper(...args) {
+        let result, wrapperCache;
         const hash = args.join(",");
         console.log('\n', hash);
         if (hash in wrapper.cache) {
-            console.log("Из кэша: " + wrapper.cache[hash]);
+            result = 'Из кэша: ' + wrapper.cache[hash];
+            wrapperCache = ``;
         } else {
             wrapper.cache[hash] = func.call(this, ...args);
             wrapper.cache = wrapper.last5();
-            console.log("Вычисляем: " + wrapper.cache[hash]);
-            console.log(wrapper.cache);
+            result = 'Вычисляем: ' + wrapper.cache[hash];
+            wrapperCache = `Добавляем:  { ${wrapper.cacheToString()} }`;
         }
+        console.log(result, '\t', wrapperCache);
+        return result;
     }
 
     return wrapper;
