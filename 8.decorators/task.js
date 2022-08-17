@@ -28,9 +28,10 @@ function cachingDecoratorNew(func) { // [ {hash,val}, {hash,val}, ...]
             }
             result = 'Вычисляем: ' + thisValue;
             action = 'Добавляем новый кэш.' + (action ? ` ${action}` : '');
-            action += `\n[${wrapper.cacheToString()} ]`;
+            action += `\n[${wrapper.cacheToString()} ]`; //
         }
-        console.log(`${result}. ${action}`);
+        console.log(`${result}. ${action}`); //
+        // console.log(`${result}. ${action}\n`, ...wrapper.cache);
         return result;
     }
 
@@ -100,13 +101,16 @@ function cachingDecoratorNew3(func) { // { {hash: val}, {hash: val}, ...}
 
 // Задача 2. Debounce декоратор с моментальным вызовом
 
-function debounceDecoratorNew(func) {
-  // Ваш код
-}
-
-
-// Задача 3. Усовершенствуйте debounceDecoratorNew
-
-function debounceDecorator2(func) {
-  // Ваш код
+function debounceDecoratorNew(func, ms) {
+    function wrapper(...args) {
+        wrapper.allCount++;
+        wrapper.count.push(args);
+        clearTimeout(timeout);
+        timeout = setTimeout(() => func.apply(this, args), ms);
+    }
+    let timeout;
+    wrapper.count = [];
+    wrapper.allCount = 0;
+    console.log('\n');
+    return wrapper;
 }
