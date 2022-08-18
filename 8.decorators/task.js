@@ -114,7 +114,6 @@ function debounceDecoratorNew(func, ms) {
     }
 
     wrapper.fasterStart = ms;
-    wrapper.timeout = 0;
     wrapper.count = 0;
     wrapper.allCount = 0;
     console.log('\nTASK-2:\n');
