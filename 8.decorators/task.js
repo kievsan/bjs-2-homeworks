@@ -103,14 +103,20 @@ function cachingDecoratorNew3(func) { // { {hash: val}, {hash: val}, ...}
 
 function debounceDecoratorNew(func, ms) {
     function wrapper(...args) {
+        console.log('====== ', ...args, `, debounce: ${ms - wrapper.fasterStart} ms.`);
         wrapper.allCount++;
-        wrapper.count.push(args);
-        clearTimeout(timeout);
-        timeout = setTimeout(() => func.apply(this, args), ms);
+        clearTimeout(wrapper.timeout);
+        wrapper.timeout = setTimeout(() => {
+            func.apply(this, args);
+            console.log('func ВЫПОЛНИЛАСЬ', `${++wrapper.count}-й раз!`);
+        }, ms - wrapper.fasterStart);
+        wrapper.fasterStart = 0;
     }
-    let timeout;
-    wrapper.count = [];
+
+    wrapper.fasterStart = ms;
+    wrapper.timeout = 0;
+    wrapper.count = 0;
     wrapper.allCount = 0;
-    console.log('\n');
+    console.log('\nTASK-2:\n');
     return wrapper;
 }
